@@ -1,0 +1,109 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Ticket</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ ticket.id }}</td>
+            </tr>
+            <tr>
+                <th>Lastname</th>
+                <td>{{ ticket.lastName }}</td>
+            </tr>
+            <tr>
+                <th>Firstname</th>
+                <td>{{ ticket.firstName }}</td>
+            </tr>
+            <tr>
+                <th>Society</th>
+                <td>{{ ticket.society }}</td>
+            </tr>
+            <tr>
+                <th>Ticketnumber</th>
+                <td>{{ ticket.ticketNumber }}</td>
+            </tr>
+            <tr>
+                <th>Day1transporttrain</th>
+                <td>{% if ticket.day1TransportTrain %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Day1breakfast</th>
+                <td>{{ ticket.day1Breakfast }}</td>
+            </tr>
+            <tr>
+                <th>Day1visite</th>
+                <td>{{ ticket.day1Visite }}</td>
+            </tr>
+            <tr>
+                <th>Day1transportbus</th>
+                <td>{% if ticket.day1TransportBus %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Day2transportbus</th>
+                <td>{% if ticket.day2TransportBus %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Day2visite</th>
+                <td>{{ ticket.day2Visite }}</td>
+            </tr>
+            <tr>
+                <th>Day2breakfast</th>
+                <td>{{ ticket.day2Breakfast }}</td>
+            </tr>
+            <tr>
+                <th>Day2transporttrain</th>
+                <td>{% if ticket.day2TransportTrain %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Day2night</th>
+                <td>{% if ticket.day2Night %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Day2transportbusnight</th>
+                <td>{% if ticket.day2TransportBusNight %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Optionvisite</th>
+                <td>{{ ticket.optionVisite }}</td>
+            </tr>
+            <tr>
+                <th>Optionexpo</th>
+                <td>{{ ticket.optionExpo }}</td>
+            </tr>
+            <tr>
+                <th>Optionartdeco</th>
+                <td>{{ ticket.optionArtDeco }}</td>
+            </tr>
+            <tr>
+                <th>Optiondecouverte</th>
+                <td>{% if ticket.optionDecouverte %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Optiongrandsite</th>
+                <td>{% if ticket.optionGrandSite %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Price</th>
+                <td>{{ ticket.price }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('ticket_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('ticket_edit', { 'id': ticket.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

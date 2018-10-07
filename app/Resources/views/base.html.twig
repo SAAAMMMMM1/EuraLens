@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, user-scalable=no">
+        <title>Colloque Euralens 2019{% block title %}{% endblock %}
+        </title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700">
+        <link rel="stylesheet" href="{{ asset('css/Header-Blue.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/facture.css') }}">
+        <link rel="stylesheet" href="{{ asset('fonts/font-awesome.min.css') }}">
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+        <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+        <script src="{{ asset('bundles/fosckeditor/ckeditor.js') }}"></script>
+    </head>
+    <body style="display:flex;min-height:100vh;flex-direction:column;">
+        <nav style="height:60px;" class="navbar navbar-light navbar-expand-md">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#"></a>
+                <button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navcol-1">
+                    {% if is_granted("ROLE_ADMIN") %}
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link active" href="{{ path('fos_user_security_homepage') }}" style="font-size:25px;color:white;">Accueil</a>
+                            </li>
+                        </ul>
+                        <ul class="nav navbar-nav ml-auto">
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link active" href="{{ path('admin_page') }}" style="font-size:25px;color:white;">Espace admin</a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link" href="{{ path('fos_user_security_logout') }}" style="font-size:25px;color:white;">Se déconnecter</a>
+                            </li>
+                        </ul>
+                    {% elseif is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link active" href="{{ path('fos_user_security_homepage') }}" style="font-size:25px;color:white;">Accueil</a>
+                            </li>
+                        </ul>
+                        <ul class="nav navbar-nav ml-auto">
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link active" href="{{ path('fos_user_profile_show') }}" style="font-size:25px;color:white;">Espace client</a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link" href="{{ path('fos_user_security_logout') }}" style="font-size:25px;color:white;">Se déconnecter</a>
+                            </li>
+                        </ul>
+                    {% else %}
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link active" href="{{ path('fos_user_security_homepage') }}" style="font-size:25px;color:white;">Accueil</a>
+                            </li>
+                        </ul>
+                        <ul class="nav navbar-nav ml-auto">
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link active" href="{{ path('fos_user_security_login') }}" style="font-size:25px;color:white;">Se connecter</a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link" href="{{ path('fos_user_registration_register') }}" style="font-size:25px;color:white;">S'incrire</a>
+                            </li>
+                        </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </nav>
+        <div style="flex:1;">
+            {% block body %}{% endblock %}
+        </div>
+        <footer class="container-fluid" style="padding-top:20px;">
+            <div class="row footer_row_1" style="margin-bottom:25px;">
+                <div class="col-md-6 d-flex justify-content-center">
+                    <input type="button" id="myBtn" class="btn btn-muted text-center"  value="Un site made in POP School Lens" data-toggle="modal" data-target="#quisommesnous">
+                    </input>
+                </div>
+                <div class="col-md-6 d-flex justify-content-center">
+                    <input type="button" id="myBtn" class="btn btn-muted text-center" value="Nous contacter" data-toggle="modal" data-target="#nouscontacter">
+                    </input>
+                </div>
+            </div>
+        </footer>
+
+<!-- Modal -->
+<div class="modal fade" id="quisommesnous" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Qui sommes-nous ?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>
+          <a href="http://popschool.eu.com/" target="_blank" ><strong>POP School</strong></a> est une entreprise à impact social qui propose des formations aux métiers émergents du numérique, 100 % gratuites pour les jeunes, les demandeurs d’emploi et les personnes en reconversion.
+        </p>
+        <p>
+          Cette formation labellisée <a href="http://www.euralens.org/projets/pop-school-de-lens.html" target="_blank" ><strong>Euralens</strong></a> forme gratuitement une vingtaine de stagiaires aux métiers du numérique et plus précisément à la profession de développeur web.
+        </p>
+        <p>
+          Dans le cadre de cette formation, les prémices de ce site internet ont été développés par trois élèves <a href="https://www.linkedin.com/in/stephane-duquesnoy-0ba52811a/" target="_blank" ><strong>Stephane Duquesnoy</strong></a>, <a href="https://www.linkedin.com/in/benjamin-martinez-4b8621158/" target="_blank" ><strong>Benjamin Martinez</strong></a> et <a href="https://www.linkedin.com/in/saaammmmm/" target="_blank" ><strong>Samuel Libeert</strong></a> pendant leur temps de projet collectif.
+        </p>
+        <p>
+          Ce site internet a ensuite été finalisé par <a href="https://www.linkedin.com/in/saaammmmm/" target="_blank" ><strong>Samuel</strong></a> <a href="http://cv.saaammmmm.com/" target="_blank" ><strong>Libeert</strong></a> pendant son stage
+          de fin de formation afin de valider son diplôme.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="nouscontacter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Nous contacter</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body text-center">
+        Pour toute question relative à votre réservation ou au programme, adressez un message à l'adresse suivante : <span class="d-flex justify-content-center"><strong>apu2019@euralens.org</strong></span>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+        <script src="{{ asset('js/stupidtable.js') }}"></script>
+        <script src="{{ asset('js/stupidtable.min.js') }}"></script>
+        <script src="{{ asset('js/adminColloque.js') }}"></script>
+        <script src="{{ asset('js/admin3.js') }}"></script>
+        <script src="{{ asset('js/sort.js') }}"></script>
+        <script src="{{ asset('js/paiement.js') }}"></script>
+    </body>
+</html>

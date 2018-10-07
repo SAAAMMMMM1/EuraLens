@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+{% if is_granted("ROLE_ADMIN") %}
+<div>
+    <div class="container" style="margin-top:100px;">
+        <div class="row justify-content-between" style="height:250px;min-height:250px;">
+            <div id="borderadmin" class="col-md-4 col-xl-3 d-flex flex-column justify-content-around align-items-center border-column-admin"><a class="btn btn-primary" href="{{ path('admin_colloque') }}">Colloque</a>
+                <p class="text-center" style="margin:0px;">Toutes les informations des réservations<br>concernant le colloque Euralens 2019&nbsp;<br></p>
+            </div>
+            <div id="borderadmin" class="col-md-4 col-xl-3 d-flex flex-column justify-content-around align-items-center border-column-admin"><a class="btn btn-primary" role="button" href="{{ path('admin_utilisateurs') }}">Utilisateurs</a>
+                <p class="text-center" style="margin:0px;">Toutes les informations des utilisateurs<br>concernant le colloque Euralens 2019&nbsp;<br></p>
+            </div>
+            <div id="borderadmin" class="col-md-4 col-xl-3 d-flex flex-column justify-content-around align-items-center border-column-admin"><a class="btn btn-primary" role="button" href="{{ path('admin_paiement') }}">Paiement et Verification</a>
+                <p class="text-center" style="margin:0px;">Toutes les informations des paiements<br>concernant les réservations du colloque Euralens 2019<br></p>
+            </div>
+        </div>
+        <div class="row justify-content-between" style="margin-top:50px;height:250px;min-height:250px;">
+          <div id="borderadmin" class="col-md-4 col-xl-3 d-flex flex-column justify-content-around align-items-center border-column-admin">
+            <a class="btn btn-primary" role="button" href="{{ path('admin_listeattente') }}">Liste D'attente</a>
+              <p class="text-center" style="margin:0px;">Toutes les personnes sur la liste d'attente<br>du colloque Euralens 2019<br></p>
+          </div>
+          <div id="borderadmin" class="col-md-4 col-xl-3 d-flex flex-column justify-content-around align-items-center border-column-admin">
+            <a class="btn btn-primary" role="button" href="{{ path('admin_annulation') }}">Demande D'Annulation</a>
+              <p class="text-center" style="margin:0px;">Toutes les demandes d'annulation<br> du colloque Euralens 2019<br></p>
+          </div>
+          <div id="borderadmin" class="col-md-4 col-xl-3 d-flex flex-column justify-content-around align-items-center border-column-admin">
+            <a class="btn btn-primary" role="button" href="{{ path('content_index') }}">Ajout/Suppression Contenu</a>
+              <p class="text-center" style="margin:0px;">Ajout/Modification ou Suppression<br> de contenu<br></p>
+          </div>
+          {% endif %}
+          {% if is_granted("ROLE_REDACTEUR") %}
+          <div>
+              <div class="container" style="margin-top:100px;">
+                  <div class="row justify-content-around" style="height:250px;min-height:250px;">
+                      <div id="borderadmin" class="col-md-4 col-xl-3 d-flex flex-column justify-content-around align-items-center border-column-admin">
+                          <a class="btn btn-primary" role="button" href="{{ path('content_index') }}">Ajout/Suppression Contenu</a>
+                          <p class="text-center" style="margin:0px;">Ajout/Modification ou Suppression<br> de contenu<br></p>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          {% endif %}
+        </div>
+        {% if is_granted("ROLE_ADMIN") %}
+        <div class="row justify-content-around" style="margin-top:50px;height:250px;min-height:250px;">
+          <div id="borderadmin" class="col-md-4 col-xl-3 d-flex flex-column justify-content-around align-items-center border-column-admin">
+                <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#sendemail">Envoie Email<i style="margin-left:10px;" class="fas fa-envelope-open"></i></button>
+                <p class="text-center" style="margin:0px;">Envoie de mail a tout les participants<br>du colloque Euralens 2019<br></p>
+          </div>
+        </div>
+        <div class="row d-flex justify-content-around" style="margin-top:50px;margin-bottom:50px;">
+            <div class="">
+                <a class="btn btn-primary" role="button" href="{{ path('admin_csv') }}">Télécharger toutes les données</a>
+            </div>
+            <div class="modal fade bd-example-modal-lg" id="sendemail" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Envoie D'email</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <form action="{{ path('send_email2') }}" method="post">
+                      <div class="form-group">
+                        <label for="mailBody" class="col-form-label">Message:</label>
+                        <textarea id="mailBody" name="mailBody" class="form-control"></textarea>
+                      </div>
+                      <div class="">
+                        <button type="submit" class="btn btn-primary">Envoyer</button>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

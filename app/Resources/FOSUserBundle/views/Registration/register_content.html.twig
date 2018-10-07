@@ -1,0 +1,25 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+<div class="container" style="width:700px;">
+    <div class="row">
+        <div class="col-md-12">
+            <form action="{{ path('fos_user_registration_register') }}" method="POST" class="fos_user_registration_register m-signup--form flex-column" style="margin-top:30px;">
+                <ul class="errorLog">
+                    <div class="field">
+                        <label for="fos_user_registration_form_email">Email</label>
+                        {{ form_widget(form.email, {label_attr: {class: 'form-control'} }) }}
+                    </div>
+                    <div class="field" style="margin-top:12px;">
+                        <label for="fos_user_registration_form_username">Login</label>
+                        {{ form_widget(form.username, {label_attr: {class: 'form-control'} }) }}
+                    </div>
+                    <div class="field" style="margin-top:12px;">
+                        {{ form_widget(form.plainPassword, {label_attr: {class: 'form-control'} }) }}
+                    </div>
+                    <span>{{ form_widget(form) }}</span>
+                    <input type="submit" class="btn btn-primary float-right" style="margin-top:30px;width:180px;" value="Suivant"/>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

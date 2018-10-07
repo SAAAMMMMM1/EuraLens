@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Colloque Euralens 2019
+        </title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700">
+        <link rel="stylesheet" href="http://colloque.euralens.org/css/Header-Blue.css">
+        <link rel="stylesheet" href="http://colloque.euralens.org/css/styles.css">
+        <link rel="stylesheet" href="http://colloque.euralens.org/css/facture.css">
+        <link rel="stylesheet" href="http://colloque.euralens.org/fonts/font-awesome.min.css">
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+    </head>
+    <body>
+      <div class="content">
+          <div>
+              <div class="container">
+                  <div class="row">
+                      <div class="col-md-6"><img src="http://colloque.euralens.org/img/ville.jpg" alt=""></div>
+                      <div class="col-md-3 col-md-push-2">
+                          <h4 class="text-center">Réf : EF ou VF/{{facture.number}}</h4>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div style="margin-top:40px;">
+              <div class="container">
+                  <div class="row">
+                      <div class="col-md-6">
+                          <div>
+                              <p style="margin-bottom:0;">Service Groupes / Réceptif</p>
+                          </div>
+                          <div>
+                              <p style="margin-bottom:0;">LENS’14-18 – 102 rue Pasteur – 62153 Souchez</p>
+                          </div>
+                          <div>
+                              <p style="margin-bottom:0;">www.tourisme-lenslievin.fr |#lenslievintourisme</p>
+                          </div>
+                      </div>
+                      <div class="col-md-3 col-md-push-2">
+                          <div>
+                              <h5 style="font-weight:bold;">{{facture.customer.society}}</h5>
+                          </div>
+                          <div>
+                              <h5 style="font-weight:bold;">{{facture.customer.firstname}} {{facture.customer.lastname}}</h5>
+                          </div>
+                          <div>
+                              <h5 style="font-weight:bold;">{{facture.customer.adress}}</h5>
+                          </div>
+                          <div>
+                              <h5 style="font-weight:bold;">{{facture.customer.cp}} - {{facture.customer.town}}</h5>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div style="margin-top:40px;">
+              <div class="container">
+                  <div class="row">
+                      <div class="col-md-6">
+                          <div>
+                              <p style="margin-bottom:0;">Dossier suivi par Véronique ou Eléonore</p>
+                          </div>
+                          <div>
+                              <p style="margin-bottom:0;">+33 (0)3 21 67 66 62 – groupes@tourisme-lenslievin.fr</p>
+                          </div>
+                      </div>
+                      <div class="col-md-3 col-md-push-2">
+                          <div>
+                              <p style="margin-bottom:0;">Lens, le {{ date | date('d/m/Y')}}</p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div style="margin-top:30px;">
+              <div class="container">
+                  <div class="row">
+                      <div class="col-md-12 factureborder">
+                          <h4 class="text-center">FACTURE N° {{facture.number}}</h4>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div style="margin-top:30px;">
+              <div class="container">
+                  <div class="row">
+                      <div class="col-md-12">
+                          <div>
+                              <p style="font-weight:bold;">DATE : {{ date | date('d/m/Y')}}</p>
+                          </div>
+                          <div>
+                              <p style="font-weight:bold;">NOMBRE DE PERSONNES :</p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div style="margin-top:30px;">
+              <div class="container">
+                  <div class="row">
+                      <div class="col-md-12">
+                          <div class="table-responsive">
+                              <table class="table">
+                                  <thead class="tableborder" >
+                                      <tr>
+                                          <th class="info center tableborder" colspan="6">PRESTATION(S)</th>
+                                          <th class="info center tableborder">QTÉ</th>
+                                          <th class="info center tableborder">N° Ticket</th>
+                                          <th class="info center tableborder">Montant <br>TTC</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody class="">
+                                    {% for ticket in tickets %}
+                                      <tr>
+                                          <td class="center tableborder" colspan="6">Colloque 2019</td>
+                                          <td class="center tableborder">1</td>
+                                          <td class="center tableborder">{{ticket.ticketNumber}}</td>
+                                          <td class="center tableborder">{{ticket.price}}€</td>
+                                      </tr>
+                                      {% endfor %}
+                                      <tr>
+                                          <td colspan="6"></td>
+                                          <td></td>
+                                          <td class="center tableborder" style="font-weight:bold;">Montant Total</td>
+                                          <td class="center tableborder">{{facture.price}}€</td>
+                                      </tr>
+                                  </tbody>
+                              </table>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div style="margin-top:50px;">
+              <div class="container">
+                  <div class="row">
+                      <div class="col-md-12">
+                          <div>
+                              <p style="font-size:10px;">Pas d'escompte pour règlement anticipé. En cas de retard de paiement, une pénalité égale à 3 fois le taux d'intérêt légal sera exigible (Article L 441-6, alinéa 12 du Code de <br>Commerce). <br></p>
+                              <p style="font-size:10px;">Pour tout professionnel, en sus des indemnités de retard, toute somme, y compris l'acompte, non payée à sa date d'exigibilité produira de plein droit le paiement d'une <br>indemnité forfaitaire de 40 euros due au titre des frais
+                                  de recouvrement (Art. 441-6, I al. 12 du code de commerce et D. 441-5 ibidem). <br></p>
+                              <p style="font-size:10px;">TVA sur la marge - art. 266-1-E du CGI et Instruction du 24/06/1981<br></p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </body>
+</html>

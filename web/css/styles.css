@@ -1,0 +1,264 @@
+.reservation-link,.reservation-link:hover,.reservation-link-2 {
+  text-decoration:none;
+  color:inherit;
+}
+
+@media screen and (min-width: 770px) {
+  .banner-title {
+      background-image: url("../img/banniere.jpg");
+      background-size:100% 80vh;
+      background-repeat:no-repeat;
+      height: 60vh;
+      margin-bottom: 15px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: flex-end;
+  }
+}
+
+@media screen and (max-width: 770px) {
+  .banner-title {
+    background-image: url("../img/banniere.jpg");
+    background-size:100% 62vh;
+    background-repeat:no-repeat;
+    height: 45vh;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+  }
+  .imgbanner{
+    height: 100px;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .banner-title {
+    background-image: url("../img/banniere.jpg");
+    background-size:100% 50vh;
+    background-repeat:no-repeat;
+    height: 35vh;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+  }
+
+  .imgbanner{
+    height: 65px;
+  }
+
+}
+
+.ligne1 {
+  margin-top: 25px;
+}
+
+a img{
+  height: 150px;
+}
+
+.content img {
+  height: 60px;
+  margin-bottom: 10px;
+}
+
+.ligne1 img {
+  width: 95%;
+  height:300px;
+  margin-bottom: 10px;
+  object-fit: cover;
+}
+
+
+.accueillisteattente{
+  background-color: rgba(0, 0, 0, 0.2);
+  margin-top:25px;
+  text-align:center;
+  border-radius: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.foo {
+  float: left;
+  width: 20px;
+  height: 20px;
+  margin: 5px;
+  border: 1px solid rgba(0, 0, 0, .2);
+}
+
+.blue {
+  background: #007bff;
+}
+
+.green {
+  background: #1e7e34;
+}
+
+.black {
+  background: #343a40;
+}
+
+.orange {
+  background: rgb(255, 174, 0);
+  border: 1px solid rgb(219, 150, 0);
+}
+.orange:hover{
+  background: rgb(219, 150, 0);
+  border: 1px solid rgb(206, 141, 1);
+}
+
+
+.reservation-link-color{
+  color:orange;
+}
+
+.container.container-form {
+  border:2px solid black;
+}
+
+.Formulaire-number {
+  position:relative;
+  left:34px;
+  bottom:89px;
+  color:orange;
+}
+
+.container.borderclient {
+ border:2px solid black;
+}
+
+.collapseclient {
+ width:100%;
+}
+
+.border-form-prix{
+  border:2px solid black;
+}
+
+.container.border-util {
+  border:1px solid black;
+}
+
+.user_form {
+  text-transform: uppercase;
+  cursor:pointer;
+}
+
+.user_form2 {
+  padding-top:10px;
+}
+
+.row.d-flex.flex-row.border-util {
+  border-bottom:1px solid black;
+}
+
+border-column-admin {
+  border:1px solid black;
+}
+
+.col.d-flex.flex-column.justify-content-around.align-items-center.border-column-admin {
+  border:1px solid black;
+}
+
+.container.d-flex.flex-column.ml-auto.bordercontainer {
+  border:1px solid black;
+}
+
+.container.d-flex.flex-column.bordercontainer {
+  border:1px solid black;
+}
+
+.bordertitleadmin {
+  margin-top: 10px;
+  border-top:1px solid black;
+  border-bottom:1px solid black;
+}
+
+.col-xl-12.d-flex.justify-content-center.totalprix {
+  border-top:1px solid black;
+}
+
+.col.border-left-admin {
+  border-left:1px solid black;
+}
+
+.clear {
+  clear:both;
+}
+
+#borderadmin{
+  border:1px solid black;
+}
+
+nav{
+  border-top: 2px solid rgb(39, 39, 39);
+  background-color: rgb(77, 77, 77);
+}
+footer{
+  border-top: 2px solid rgb(39, 39, 39);
+  background-color: rgb(77, 77, 77);
+}
+.footer_row_1 {
+  padding-top: 10px;
+  margin-bottom: -20px;
+}
+
+.footer_row_1 a {
+  color: white;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.footer_row_1 a:hover {
+  text-decoration: underline;
+}
+
+.footer_row_2 {
+  color: rgb(53, 52, 52);
+}
+.btn-secondary {
+  background-color: rgb(18, 185, 18);
+}
+
+.titre {
+  color: white;
+  background-color: rgb(18, 185, 18);
+  border-radius: 25px;
+  text-transform:uppercase;
+  font-size: 20px;
+  font-weight: 600;
+}
+.prix {
+  color: black;
+  text-transform:uppercase;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.recap {
+  background: linear-gradient(to top, rgba(255, 255, 255, 0.5),rgba(255, 255, 255, 0.5)), url("../img/backRecap.jpg");
+  height: 100%;
+  background-size: cover;
+}
+.ticket {
+  background: linear-gradient(to top, rgba(255, 255, 255, 0.5),rgba(255, 255, 255, 0.5)), url("../img/backTicket.jpg");
+  height: 100%;
+  background-size: cover;
+}
+
+.paiement {
+  background: linear-gradient(to top, rgba(255, 255, 255, 0.5),rgba(255, 255, 255, 0.5)), url("../img/backPaiement.jpg");
+  height: 100%;
+  background-size: cover;
+  background-position: bottom;
+}
+.paiementPayZen {
+  position: absolute;
+  top: 140px;
+  left:70%;
+}
+.adresse_cheque li{
+  list-style-type: none;
+}

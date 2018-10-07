@@ -1,0 +1,129 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} - Home Page{% endblock %}
+
+{% block body %}
+
+
+    <header>
+      {% if app.session.flashBag.has('welcome') %}
+        <div class="d-flex justify-content-center">
+            {% for msg in app.session.flashBag.get('welcome') %}
+                <p class="alert alert-success">{{ msg }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+    {% if app.session.flashBag.has('paiement') %}
+      <div class="d-flex justify-content-center">
+          {% for msg in app.session.flashBag.get('paiement') %}
+              <p class="alert alert-success">{{ msg }}</p>
+          {% endfor %}
+      </div>
+  {% endif %}
+  {% if app.session.flashBag.has('promovalide') %}
+    <div class="d-flex justify-content-center">
+        {% for msg in app.session.flashBag.get('promovalide') %}
+            <p class="alert alert-success">{{ msg }}</p>
+        {% endfor %}
+    </div>
+{% endif %}
+{% if app.session.flashBag.has('registrationSuccess') %}
+  <div class="d-flex justify-content-center">
+      {% for msg in app.session.flashBag.get('registrationSuccess') %}
+          <p class="alert alert-success">{{ msg }}</p>
+      {% endfor %}
+  </div>
+{% endif %}
+{% if app.session.flashBag.has('dejaListeAttente') %}
+  <div class="d-flex justify-content-center">
+      {% for msg in app.session.flashBag.get('dejaListeAttente') %}
+          <p class="alert alert-success">{{ msg }}</p>
+      {% endfor %}
+  </div>
+{% endif %}
+{% if app.session.flashBag.has('inscriptionListeAttente') %}
+  <div class="d-flex justify-content-center">
+      {% for msg in app.session.flashBag.get('inscriptionListeAttente') %}
+          <p class="alert alert-success">{{ msg }}</p>
+      {% endfor %}
+  </div>
+{% endif %}
+{% if app.session.flashBag.has('reservationComplet') %}
+  <div class="d-flex justify-content-center">
+      {% for msg in app.session.flashBag.get('reservationComplet') %}
+          <p class="alert alert-success">{{ msg }}</p>
+      {% endfor %}
+  </div>
+{% endif %}
+<div class="">
+  <div class="banner-title">
+    <a style="margin-bottom:15px;" href="http://www.euralens.org/" target="_blank">
+      <img class="imgbanner" src="{{ asset('img/O.png') }}" alt="">
+    </a>
+  </div>
+</div>
+    </header>
+    <section class="d-flex flex-column align-items-center">
+      {% if is_granted("ROLE_ADMIN") %}
+			<form data-sample="1" action="" method="post" data-sample-short="" name="form">
+				<textarea cols="80" id="editor1" name="editor1" rows="10">
+           {{texte1.text | raw}}
+				</textarea>
+				<input type="submit" value="Submit" name="ckeditortext">
+			</form>
+      {% else %}
+      <div style="max-width:1000PX;font-size:20px;">
+          {{texte1.text | raw}}
+      </div>
+      {% endif %}
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+          {% if reservationCount < reservationMax %}
+            <div style="margin-top:25px;">
+              <a class="btn btn-secondary" role="button" href="{{ path('ticket_new') }}" style="font-size:27px;border-color:inherit;">RÉSERVER MAINTENANT</a>
+            </div>
+        {% else %}
+        <div class="accueillisteattente">
+          <h1 class="btn btn-danger" style="font-size:27px;border-color:inherit;">COMPLET</h1>
+          <p style="max-width:1000PX;">L’ensemble des places ont été vendues et l’événement est complet. Vous pouvez, si vous le souhaitez, vous inscrire sur liste d’attente et nous vous recontacterons en cas de désistement.</p>
+          <form class="" action="{{ path('liste_attente') }}" method="post">
+            <label for="inscription">M'inscrire sur la liste d'attente</label>
+            <input type="hidden" name="inscription" id="inscription" value="0">
+            <input type="checkbox" name="inscription" id="inscription" value="1">
+            <input type="submit" class="btn btn-primary" name="inscriptionlisteattente" value="Valider" style="width:132px;"/>
+          </form>
+        </div>
+        {% endif %}
+        {% else %}
+        <div style="margin-top:25px;">
+          <a class="btn btn-secondary" role="button" href="{{ path('fos_user_security_popup') }}" style="font-size:27px;border-color:inherit;">RÉSERVER MAINTENANT</a>
+        </div>
+        {% block modal %}
+        {% endblock %}
+        {% endif %}
+    </section>
+    <div class="container-fluid" style="margin-top:20px;">
+      <div class="row  ligne1">
+    {% for content in contents %}
+          <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12  text-center">
+              {{content.picture | raw}}
+              <h5>{{content.title}}</h5>
+              <p>{{content.description | raw }}</p>
+          </div>
+    {% endfor %}
+  </div>
+</div>
+
+    <div style="margin-top:50px;margin-bottom:50px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 d-flex justify-content-center align-items-center"><a class="btn btn-secondary" role="button" href="{{ asset('files/LivretA5.pdf') }}" target="_blank" style="margin-top:0px;font-size:25px;border-color:inherit;">VOIR TOUT LE PROGRAMME</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+
+      CKEDITOR.replace( 'editor1' )
+    </script>
+
+{% endblock %}

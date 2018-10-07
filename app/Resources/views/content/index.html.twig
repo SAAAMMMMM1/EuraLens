@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container" style="margin-top:25px;">
+  <div class="row justify-content-center">
+    <div class="col-md-3">
+          <a class="nav-link btn btn-primary" href="{{ path('admin_page') }}" style="font-size:25px;color:black;color:white;">Menu Admin</a>
+    </div>
+  </div>
+</div>
+<div style="margin-left:40px;margin-right:40px;margin-top:50px;margin-bottom:25px;">
+            <div class="container-fluid border-util">
+                <div class="row d-flex flex-row" style="margin:0;margin-right:0;margin-left:0;">
+                  <table id="table" class="col-md-12 text-center">
+                    <thead class="user_form2" style="color:#007bff;border-bottom:1px solid #007bff;">
+                      <tr>
+                        <th class="user_form" data-sort="string">Id</th>
+                        <th class="user_form" data-sort="string">Titre</th>
+                        <th class="user_form" data-sort="string">Image/Video</th>
+                        <th class="user_form" data-sort="string">Actions</th>
+                      </tr>
+                    </thead>
+        <tbody>
+            <tr>
+              {% for content in contents %}
+                <td>{{ content.id }}</td>
+                <td>{{ content.title }}</td>
+                <td class="content">{{ content.picture | raw }}</td>
+                <td>
+                  <div class="d-flex justify-content-center">
+                    Modifier<a href="{{ path('content_edit', { 'id': content.id }) }}"><i class="fas fa-edit"></i></a>
+                    <form name="form" method="post" action="/EuraLens/web/app_dev.php/content/{{content.id}}">
+                      <input type="hidden" name="_method" value="DELETE" />
+                      <button type="submit" value="Delete" class="btn btn-primary" style="margin-left:20px;">Delete <i class="fas fa-trash-alt"></i></button>
+                      <input type="hidden" id="form__token" name="form[_token]" value="{{csrf_token('form')}}" />
+                    </form>
+                  </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+  </div>
+</div>
+</div>
+</div>
+<div class="d-flex justify-content-center" style="margin-bottom:25px;">
+  <a class="btn btn-primary" href="{{ path('content_new') }}">Ajouter Nouveau Contenu</a>
+</div>
+{% endblock %}

@@ -1,0 +1,13 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_host: localhost
+    database_port: null
+    database_name: colloque
+    database_user: root
+    database_password: null
+    mailer_transport: gmail
+    mailer_host: null
+    mailer_user: euralenscolloque@gmail.com
+    mailer_password: euralens
+    secret: 95ea6c490d67e9e5efd90833b499f52404fb600d
+    mailer_encryption: null

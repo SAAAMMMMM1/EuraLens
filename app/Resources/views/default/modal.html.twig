@@ -1,0 +1,93 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} - Home Page{% endblock %}
+
+{% block body %}
+
+
+    <header>
+        <a href="google.fr">
+        <div class="d-flex justify-content-center banner-title">
+            <h1>Un territoire phœnix Du noir au vert</h1>
+        </div>
+        </a>
+    </header>
+    {% block modal %}
+    {% if app.session.flashBag.has('erreur') %}
+    <div class="d-flex justify-content-center" style ="margin-top:20px;">
+      {% for msg in app.session.flashBag.get('erreur') %}
+      <p class="alert alert-danger"><strong>{{msg}}</strong> de vous <strong><a href="{{ path('fos_user_registration_register') }}">inscrire</a></strong> ou de vous <a href="{{ path('fos_user_security_login') }}"><strong>connecter</strong></a> pour acceder au formulaire.</p>
+      {% endfor %}
+    </div>
+    {% endif %}
+    {% endblock %}
+    <section class="d-flex flex-column align-items-center">
+        <div style="max-width:1000PX;font-size:20px;">
+            <p>Revitaliser un territoire relève de registres variés et échappe à l’habituelou/ou pour appréhender le et/et : la régénération urbaine, l’espace public,la mobilité, la qualité spatiale, environnementale et architecturale, mais aussi la dynamique culturelle, sociale, économique, ludique, …</p>
+            <p> C’est aussi une articulation entre le top down et le bottom up, les actions des collectivités locales, la stimulation du privé et l’accueil d’initiativesrelevant de registres différents comme le démontre la labellisation Euralens qui salue tant une médiathèque originale qui relie un grand nombre d’actions, qu’un espace public dessiné par une artiste, ou un lieu improbable dans une cité jardin qui offre des actions sociales,d’agriculture bio, d’accueil hôtelier spécifiques, … mais aussi un parcours VTT dans les terrils réaménagés ou encore et surtout la mobilisation de lycées techniques en lien avec le monde économique, la formation numérique, etc..</p>
+        </div>
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        <div style="margin-top:25px;">
+          <a class="btn btn-secondary" role="button" href="{{ path('fos_user_security_reservation') }}" style="font-size:27px;">RESERVER MAINTENANT</a>
+        </div>
+        {% else %}
+        <div style="margin-top:25px;">
+          <a class="btn btn-secondary" role="button" href="{{ path('fos_user_security_popup') }}" style="font-size:27px;">RESERVER MAINTENANT</a>
+        </div>
+        {% endif %}
+
+        </section>
+    <div class="container-fluid" style="margin-top:20px;">
+        <div class="row  ligne1">
+            <div class="col-md-4 text-center">
+                <img src="{{ asset('img/louvreLens.jpg') }}" alt="Louvre Lens">
+                <h5>Conférences au Louvre-Lens</h5>
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Praesentium temporibus earum ipsam at. Iure fugiat dicta, ad amet, nesciunt modi, autem incidunt veritatis officia fugit sint quisquam illo eum animi?</p>
+            </div>
+            <div class="col-md-4 text-center">
+                <img src="{{ asset('img/soiree.jpg') }}" alt="soirée Lens">
+                <h5>Une soirée d’exception</h5>
+                <p class="">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Praesentium temporibus earum ipsam at. Iure fugiat dicta, ad amet, nesciunt modi, autem incidunt veritatis officia fugit sint quisquam illo eum animi?</p>
+            </div>
+            <div class="col-md-4 text-center">
+            <img src="{{ asset('img/visites.jpg') }}" alt="visites Arkéos">
+                <h5>Des visites inédites</h5>
+                <p class="">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Praesentium temporibus earum ipsam at. Iure fugiat dicta, ad amet, nesciunt modi, autem incidunt veritatis officia fugit sint quisquam illo eum animi?</p>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="container-fluid">
+            <div class="row ligne1">
+                <div class="col-md-4 text-center">
+                    <img src="{{ asset('img/ville.jpg') }}" alt="soirée Lens">
+                    <h5>Villes invitées</h5>
+                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Praesentium temporibus earum ipsam at. Iure fugiat dicta, ad amet, nesciunt modi, autem incidunt veritatis officia fugit sint quisquam illo eum animi?</p></p>
+                </div>
+                <div class="col-md-4 text-center">
+                    <iframe width="550" height="300" allowfullscreen="" frameborder="0" src="https://www.youtube.com/embed/djasM0VS8uo"></iframe>
+                    <h5>Euralens chaine des parcs (Video)</h5>
+                </div>
+                <div class="col-md-4  text-center">
+                    <img src="{{ asset('img/fete.jpg') }}" alt="soirée Lens">
+                    <h5>Tout un programme de fêtes</h5>
+                    <p class="text-center"> <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Praesentium temporibus earum ipsam at. Iure fugiat dicta, ad amet, nesciunt modi, autem incidunt veritatis officia fugit sint quisquam illo eum animi?</p></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="margin-top:100px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 d-flex justify-content-center align-items-center"><a class="btn btn-secondary" role="button" href="{{ asset('files/Livret_A5_Odyssée.pdf') }}" target="_blank" style="margin-top:0px;font-size:25px;">VOIR TOUT LE PROGRAMME</a></div>
+            </div>
+        </div>
+    </div>
+    <div style="margin-top:100px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-xl-12 d-flex justify-content-center"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

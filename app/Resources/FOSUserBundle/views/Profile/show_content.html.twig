@@ -1,0 +1,352 @@
+{% trans_default_domain 'FOSUserBundle' %}
+{% extends '::base.html.twig' %}
+
+{% block body %}
+{% if app.session.flashBag.has('paiementok') %}
+    <div class="d-flex justify-content-center" style="margin-top:15px;">
+        {% for msg in app.session.flashBag.get('paiementok') %}
+            <p class="alert alert-success">{{ msg }}</p>
+        {% endfor %}
+    </div>
+{% endif %}
+{% if app.session.flashBag.has('changePassword') %}
+    <div class="d-flex justify-content-center" style="margin-top:15px;">
+        {% for msg in app.session.flashBag.get('changePassword') %}
+            <p class="alert alert-success">{{ msg }}</p>
+        {% endfor %}
+    </div>
+{% endif %}
+{% if app.session.flashBag.has('changeEmail') %}
+    <div class="d-flex justify-content-center" style="margin-top:15px;">
+        {% for msg in app.session.flashBag.get('changeEmail') %}
+            <p class="alert alert-success">{{ msg }}</p>
+        {% endfor %}
+    </div>
+{% endif %}
+{% if app.session.flashBag.has('PasDeFacture') %}
+    <div class="d-flex justify-content-center" style="margin-top:15px;">
+        {% for msg in app.session.flashBag.get('PasDeFacture') %}
+            <p class="alert alert-success">{{ msg }}</p>
+        {% endfor %}
+    </div>
+{% endif %}
+    <div class="container" style="padding-left:0px;margin-top:15px;">
+        <h4 style="font-size:25px;margin-top:4px;height:23px;">Mes coordonnées</h4>
+    </div>
+    <div>
+        <div class="container borderclient" style="padding-left:15px;padding-bottom:20px;">
+            <div class="row">
+                <div class="col-md-6" style="padding-top:7px;padding-bottom:30px;padding-right:50px;padding-left:100px;height:280px;margin-bottom:0px;width:487px;">
+                    <div class="d-flex" style="margin-top:8px;">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="formCheck-1" {% if customer.sexe == 1 %}checked{% endif %} disabled>
+                            <label class="form-check-label" for="formCheck-1" style="padding-right:11px;">M.</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="formCheck-2" {% if customer.sexe == 0 %}checked{% endif %} disabled>
+                            <label class="form-check-label" for="formCheck-2">Mme</label>
+                        </div>
+                    </div>
+                    <div style="width:352px;">
+                        <input type="text" value="{{ customer.lastname }}" style="width:330px;" disabled>
+                        <input type="text" value="{{ customer.firstname }}" style="width:330px;margin:0px;margin-top:7px;" disabled>
+                        <input type="text" value="{{ customer.society }}" style="width:330px;margin-top:6px;" disabled>
+                        </div>
+                    <div class="d-flex">
+                        <input type="text" value="{{ customer.adress }}" style="width:330px;margin-top:6px;height:30px;" disabled>
+                        </div>
+                    <div class="d-flex flex-row">
+                        <input type="text" value="{{ customer.cp }}" style="width:100px;margin-top:6px;margin-right:10px;" disabled>
+                        <input type="text" value="{{ customer.town }}" style="width:220px;margin-top:6px;" disabled>
+                    </div>
+                        <input type="text" value="{{ customer.phonenumber }}" style="width:330px;margin-top:6px;" disabled>
+                    </div>
+                <div class="col-md-6 d-flex justify-content-around flex-column" style="height:270px;">
+                    <div class="">
+                        <input type="text" value="{{ user.username }}" style="width:330px;margin-top:38px;margin-left:22px;" disabled>
+                        <input type="text" value="{{ user.email }}" style="width:330px;margin-top:7px;margin-left:22px;" disabled>
+                    </div>
+                    <div class="d-flex justify-content-between" style="width:330px;margin-left:22px;">
+                        <a href="{{ path('fos_user_change_password') }}"><input type="submit" value="Modifier Mot de passe" class="btn btn-primary"></a>
+                        <a href="{{ path('fos_user_profile_edit') }}"><input type="submit" value="Modifier Email" class="btn btn-primary"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="container" style="margin-top:15px;">
+            <div class="row">
+                <div class="col-md-12 d-flex justify-content-between" style="padding-right:0px;padding-left:0px;margin-top:9px;margin-bottom:25px;">
+                    <h4>Mes récapitulatifs</h4>
+                    <div>
+                        <a class="btn btn-primary" href="{{ path('recap_new') }}">Payer Commande</a>
+                    </div>
+                    <div class="d-flex">
+                      <p><strong>Paiement en attente</strong></p>
+                      <div class="foo blue"></div>
+                      <p><strong>Paiement effectué</strong></p>
+                      <div class="foo green"></div>
+                      <p><strong>Commande en cours</strong></p>
+                      <div class="foo orange"></div>
+                      <p><strong>En cours d'annulation</strong></p>
+                      <div class="foo black"></div>
+                    </div>
+                </div>
+            </div>
+            {% for ticket in tickets %}
+            <div class="row">
+                <div class="col-md-11 col-xl-11" style="padding-left:0px;padding-right:0px;margin-bottom:10px;">
+                    <div class="collapseclient">
+                      {% if ticket.facture.status == 2 and ticket.status == 0 %}
+                      <div class="d-flex justify-content-between">
+                        <div class="col-md-12">
+                          <a class="btn btn-success collapseclient" data-toggle="collapse" aria-expanded="false" aria-controls="collapse-1" role="button" href="#collapse-{{ ticket.id }}">
+                            <div class="row">
+                              <div class="col">
+                                Facture : {{ ticket.facture.number }}
+                              </div>
+                              <div class="col">
+                                Réservation : N°{{ ticket.ticketNumber }}
+                              </div>
+                              <div class="col">
+                                Nom: {{ ticket.lastName }}
+                              </div>
+                              <div class="col">
+                                Prénom: {{ ticket.firstName }}
+                              </div>
+                              <div class="col">
+                                ST/ADM: {{ ticket.society }}
+                              </div>
+                              <div class="col">
+                                Montant TTC : {{ ticket.price }}€
+                              </div>
+                            </div>
+                          </a>
+                        </div>
+                        <div class="col-md-1">
+                          <form method="post" action="{{ path('ticket_cancel', { 'id': ticket.id }) }}">
+                              <input type="text" name="ticketid" value="{{ticket.id}}" hidden="hidden">
+                              <input type="submit" class="btn btn-primary" name="annulationfacture" value="Annulation" style="width:132px;"/>
+                          </form>
+                        </div>
+                      </div>
+                        {% elseif ticket.facture.status == 1 %}
+                        <div class="col-md-12">
+                        <a class="btn btn-primary collapseclient" data-toggle="collapse" aria-expanded="false" aria-controls="collapse-1" role="button" href="#collapse-{{ ticket.id }}">
+                        <div class="row">
+                            <div class="col-md-2">
+                            Facture : {{ ticket.facture.number }}
+                            </div>
+                            <div class="col-md-2">
+                            Réservation : N°{{ ticket.ticketNumber }}
+                            </div>
+                            <div class="col-md-2">
+                            Nom: {{ ticket.lastName }}
+                            </div>
+                            <div class="col-md-2">
+                            Prénom: {{ ticket.firstName }}
+                            </div>
+                            <div class="col-md-2">
+                            ST/ADM: {{ ticket.society }}
+                            </div>
+                            <div class="col-md-2">
+                            Montant TTC : {{ ticket.price }}€
+                            </div>
+                        </div>
+                      </a>
+                        </div>
+                        {% elseif ticket.facture.status == 2 and ticket.status == 1 %}
+                        <div class="col-md-12">
+                        <a class="btn btn-dark collapseclient" data-toggle="collapse" aria-expanded="false" aria-controls="collapse-1" role="button" href="#collapse-{{ ticket.id }}">
+                        <div class="row">
+                            <div class="col-md-2">
+                            Facture : {{ ticket.facture.number }}
+                            </div>
+                            <div class="col-md-2">
+                            Réservation : N°{{ ticket.ticketNumber }}
+                            </div>
+                            <div class="col-md-2">
+                            Nom: {{ ticket.lastName }}
+                            </div>
+                            <div class="col-md-2">
+                            Prénom: {{ ticket.firstName }}
+                            </div>
+                            <div class="col-md-2">
+                            ST/ADM: {{ ticket.society }}
+                            </div>
+                            <div class="col-md-2">
+                            Montant TTC : {{ ticket.price }}€
+                            </div>
+                        </div>
+                        </a>
+                      </div>
+                        {% elseif ticket.facture.status == 0 %}
+                        <div class="col-md-12">
+                            <a class="btn btn-danger orange collapseclient" data-toggle="collapse" aria-expanded="false" aria-controls="collapse-1" role="button" href="#collapse-{{ ticket.id }}">
+                           <div class="row">
+                            <div class="col-md-2">
+                            Facture : {{ ticket.facture.number }}
+                            </div>
+                            <div class="col-md-2">
+                            Réservation : N°{{ ticket.ticketNumber }}
+                            </div>
+                            <div class="col-md-2">
+                            Nom: {{ ticket.lastName }}
+                            </div>
+                            <div class="col-md-2">
+                            Prénom: {{ ticket.firstName }}
+                            </div>
+                            <div class="col-md-2">
+                            ST/ADM: {{ ticket.society }}
+                            </div>
+                            <div class="col-md-2">
+                            Montant TTC : {{ ticket.price }}€
+                            </div>
+                        </div>
+                        </a>
+                        </div>
+                        {% endif %}
+
+                        <div class="collapse" id="collapse-{{ ticket.id }}">
+                            <div class="d-flex">
+                                <div class="col-xl-4" style="padding:0px;margin-left:3px;padding:5px;">
+                                    <h5 style="margin-top:5px;">Jour 1</h5>
+                                    {% if ticket.day1TransportTrain == true %}
+                                        <p>Vous avez souhaiter beneficier du transport de la gare SNCF a la scene du louvre lens.</p>
+                                    {% else %}
+                                        <p> </p>
+                                    {% endif %}
+                                    <p><strong>Matin 9h-12h : allocutions en salle à la Scène du Louvre-Lens.</strong><br></p>
+                                    <p>Midi Pique Nique :
+                                     {% if ticket.day1Breakfast == 1 %}
+                                        <strong>choix 1</strong>
+                                    {% elseif ticket.day1Breakfast == 2  %}
+                                        <strong>choix 2</strong>
+                                     {% else %}
+                                        <strong>choix 3</strong>
+                                    {% endif %}<br></p>
+                                    <p>Apres-Midi :
+                                     {% if ticket.day1Visite == 1 %}
+                                        <strong>Visite 1</strong>
+                                    {% elseif ticket.day1Visite == 2  %}
+                                        <strong>Visite 2</strong>
+                                     {% else %}
+                                        <strong>Visite 3</strong>
+                                    {% endif %}
+                                    <br></p>
+                                     {% if ticket.day1TransportBus == true %}
+                                    <p>Vous avez souhaitez beneficier du transport aller-retour vers votre hebergements<br></p>
+                               {% else %}
+                                        <p> </p>
+                                    {% endif %}
+                                    {% if ticket.day2Night == true %}
+                                          <p>Vous avez choisi de participer a la Soirée au louvre-lens de 19h30 a 00:30<br></p>
+                                     {% else %}
+                                        <p> </p>
+                                    {% endif %}
+                                   {% if ticket.day2TransportBusNight == true %}
+                                    <p>Vous avez souhaitez beneficier du transport aller-retour vers votre hebergements.<br></p>
+                                     {% else %}
+                                        <p> </p>
+                                    {% endif %}
+                                </div>
+                                <div class="col-xl-4" style="padding:0px;padding:5px;">
+                                    <h5 style="margin-top:5px;">Jour 2</h5>
+                                     {% if ticket.day2TransportBus == true %}
+                                    <p>Vous avez souhaiter beneficier du transport aller-retour vers votre hebergements.<br></p>
+                                   {% else %}
+                                        <p> </p>
+                                    {% endif %}
+                                    <p>Matin 9h-12h:  {% if ticket.day2Visite == 1 %}
+                                        <strong>Visite 1</strong>
+                                    {% elseif ticket.day2Visite == 2  %}
+                                        <strong>Visite 2</strong>
+                                     {% else %}
+                                        <strong>Visite 3</strong>
+                                    {% endif %}
+                                    <br></p>
+                                    <p>Midi Pique Nique :
+                                    {% if ticket.day2Breakfast == 1 %}
+                                         <strong>choix 1</strong>
+                                    {% elseif ticket.day2Breakfast == 2  %}
+                                         <strong>choix 2</strong>
+                                    {% else %}
+                                         <strong>choix 3</strong>
+                                    {% endif %}<br></p>
+                                    <p><strong> Après-midi : allocutions en salle à La Scène du Louvre-Lens</strong><br></p>
+                                   {% if ticket.day2TransportTrain == true %}
+                                         <p>Vous avez souhaitez beneficier du transport de la gare SNCF a la scene du louvre lens<br></p>
+                                    {% else %}
+                                        <p> </p>
+                                    {% endif %}
+                                </div>
+                                <div class="col-xl-4" style="padding:0px 0px;padding:5px;">
+                                    <h5 style="margin-top:5px;">Options</h5>
+                                    <p>Vous avez choisi de participer a la {% if ticket.optionVisite == 1 %}
+                                        <strong>Visite 1</strong>
+                                    {% elseif ticket.optionVisite == 2  %}
+                                        <strong>Visite 2</strong>
+                                     {% else %}
+                                       <strong>Visite 3</strong>
+                                    {% endif %} du samedi matin.<br></p>
+
+                                    {% if ticket.optionArtDeco == false %}
+                                    <p>Vous avez choisi de participer a l'exposition temporaire du Louvre-Lens du Samedi 8 : Prix 9€.
+                                     {% else %}
+                                        <p>Vous avez choisi de participer a l'exposition temporaire du Louvre-Lens du Dimanche 9 Juin 2019 : Prix 9€ </p>
+                                    {% endif %}
+                                    </p>
+                                  {% if ticket.optionExpo == true %}
+                                 <p>Vous avez choisi de participer a la visite guidée de la mine d'art deco
+                                        <br>de lens du Samedi 8 a 14h30 : Prix 6€.<br></p>
+                                         {% else %}
+                                        <p> Vous avez choisi de participer a la visite guidée de la mine d'art deco
+                                        de lens du Dimanche 9 Juin 2019 a 14h30 : Prix 6€</p>
+                                    {% endif %}
+                                        {% if ticket.optionDecouverte == true %}
+                                    <p>Vous avez choisi de participer a la Visite guidée "A la découverte des
+                                        <br>Terrils, trésors du Patrimoine mondial"&nbsp; du Dimanche 9 Juin 2019 a 14h30<br>
+                                        : Prix 9 €<br></p>
+                                          {% else %}
+                                        <p> </p>
+                                    {% endif %}
+                                         {% if ticket.optionGrandSite == true %}
+                                         <p>Vous avez choisi de participer a la Visite guidée
+                                        <br>"Notre-Dame-de-Lorette, grand site de la Mémoire"&nbsp; du Dimanche 9 Juin
+                                        <br>2019 a 15H : Prix 6 €<br></p>
+                                         {% else %}
+                                        <p> </p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<div>
+    <div class="container" style="margin-bottom:20px;">
+        <div class="row">
+            <div class="col-md-12" style="padding:0px;margin-top:5px;">
+                <h4>Mes factures</h4>
+            </div>
+        </div>
+        {% for facture in factures %}
+        {% if facture.status == 2 %}
+        <div class="row">
+            <div class="col d-flex" style="padding:0px;">
+                <p style="margin-bottom:0px;">Facture : {{ facture.number }} &nbsp;&nbsp;</p>
+                <a href="http://colloque.euralens.org/files/Facture-{{ facture.number }}.pdf"  target="_blank">Télécharger votre facture</a>
+            </div>
+        </div>
+        {% else %}
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

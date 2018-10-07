@@ -1,0 +1,132 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+
+<div class="paiement">
+    <div class="container" style="padding-top:20px;font-size:20px;height:100%;background-color:rgba(255, 255, 255,0.5);">
+        {% if app.session.flashBag.has('promo') %}
+          <div class="d-flex justify-content-center">
+              {% for msg in app.session.flashBag.get('promo') %}
+                  <p class="alert alert-danger">{{ msg }}</p>
+              {% endfor %}
+          </div>
+        {% endif %}
+        {% if app.session.flashBag.has('choixpaiement') %}
+          <div class="d-flex justify-content-center">
+              {% for msg in app.session.flashBag.get('choixpaiement') %}
+                  <p class="alert alert-danger">{{ msg }}</p>
+              {% endfor %}
+          </div>
+        {% endif %}
+      <div class="row  justify-content-center">
+          <div class="col-md-12">
+              <h1>Mon paiement</h1>
+          </div>
+      </div>
+      <form class="" action="{{ path('postpaiement_facture') }}" method="post" name="paiement">
+          <div class="field">
+            <div class="field d-flex flex-row">
+            <label style="margin-right:10px;"><strong>Carte Bancaire</strong></label>
+              <input class="form" type="radio" id="paiement_carte" name="paiement" value="1"/>
+            </div>
+            <div class="field">
+              <div class="field d-flex flex-row">
+                <label style="margin-right:10px;"><strong>Paiement Chèque</strong></label>
+                <input class="form" type="radio" id="paiement_cheque" name="paiement" value="2" data-toggle="collapse" data-target="#collapseOne"/>
+              </div>
+              <div id="collapseOne" class="panel-collapse collapse">
+                <div class="panel-body">
+                  <p>Envoyer votre chèque à l'adresse suivante :</p>
+                  <ul class="adresse_cheque">
+                    <li>Colloque 2019</li>
+                    <li>58 Rue de la gare</li>
+                    <li>62300 LENS</li>
+                    <br/>
+                    <li>À l'ordre de : Office du toursime de Lens</li>
+                  </ul>
+                  <p><em>Aprés réception de votre chèque, l'organisateur validera votre paiement. Vous recevrez votre facture et vos billets sur votre adresse mail.</em></p>
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <div class="field d-flex flex-row">
+                <label style="margin-right:10px;"><strong>Paiement Mandat Administratif</strong></label>
+                <input class="form" type="radio" id="paiement_mandat" name="paiement" value="3" data-toggle="collapse" data-target="#collapseTwo"/>
+              </div>
+              <div id="collapseTwo" class="panel-collapse collapse">
+                <div class="panel-body">
+                  <img src="{{ asset('img/rib.png') }}" alt="RIB Office du tourisme">
+                </div>
+              </div>
+          </div>
+            </div>
+            <div class="d-flex justify-content-end" style="margin-top:25px;">
+              <input class="btn btn-primary" type="submit" name="paiementForm" value="Payer" id="suivant"/>
+            </div>
+      </form>
+
+
+      <div class="row">
+          <div class="col-md-6">
+              <form action="{{ path('postpaiement_facture') }}" method="post" action="">
+                  <div class="field">
+                      <label>Code promotionnel :</label>
+                      <input class="form" type="text" id="" name="code_promo" value=""/>
+                  </div>
+                  <input type="submit" class="btn btn-primary" name="codepromo" value="Valider Code"/>
+              </form>
+
+          </div>
+          <div class="col-md-6">
+              <div class="prix" style="margin-top:25px;">
+              <p class="text-center" style="font-size:35px;margin-bottom:10px;">PRIX :
+              <span id="prixreservation prix"></span>{{price}} € TTC</p>
+          </div>
+          </div>
+      </div>
+      <div class="row justify-content-around" style="margin-bottom:30px;">
+        <a class="btn btn-primary" style="margin-top:30px;" href="{{ path('recap_new') }}">Récapitulatif</a>
+      </div>
+  </div>
+        <div class="panel-group" id="accordion">
+          <div class="panel panel-default">
+            <div id="collapseOne" class="panel-collapse collapse">
+              <div class="panel-body">
+                <p>Content</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <form method="POST" action="https://secure.payzen.eu/vads-payment/">
+    <input type="hidden" name="vads_action_mode" value="{{ vads_action_mode }}" />
+    <input type="hidden" name="vads_amount" value="{{ prixPayzen }}" />
+    <input type="hidden" name="vads_capture_delay" value="{{ vads_capture_delay }}" />
+    <input type="hidden" name="vads_ctx_mode" value="{{ vads_ctx_mode }}" />
+    <input type="hidden" name="vads_currency" value="{{ vads_currency }}" />
+    <input type="hidden" name="vads_cust_cell_phone" value="{{ vads_cust_cell_phone }}" />
+    <input type="hidden" name="vads_cust_city" value="{{ vads_cust_city }}" />
+    <input type="hidden" name="vads_cust_email" value="{{ vads_cust_email }}" />
+    <input type="hidden" name="vads_cust_first_name" value="{{ vads_cust_first_name }}" />
+    <input type="hidden" name="vads_cust_id" value="{{ vads_cust_id }}" />
+    <input type="hidden" name="vads_cust_last_name" value="{{ vads_cust_last_name }}" />
+    <input type="hidden" name="vads_cust_title" value="{{ vads_cust_title }}" />
+    <input type="hidden" name="vads_page_action" value="{{ vads_page_action }}" />
+    <input type="hidden" name="vads_payment_config" value="{{ vads_payment_config }}" />
+    <input type="hidden" name="vads_return_mode" value="{{ vads_return_mode }}" />
+    <input type="hidden" name="vads_site_id" value="{{ vads_site_id }}" />
+    <input type="hidden" name="vads_trans_date" value="{{ vads_trans_date }}" />
+    <input type="hidden" name="vads_trans_id" value="{{ vads_trans_id}}" />
+    <input type="hidden" name="vads_url_return" value="{{ vads_url_return }}" />
+    <input type="hidden" name="vads_version" value="{{ vads_version }}" />
+    <input type="hidden" name="signature" value="{{ signature }}" />
+    <input class="paiementPayZen btn btn-primary" style="display:none;" type="submit" name="payer" value="Payer" id="payer"/>
+  </form>
+
+</div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+{% block body %}
+{% if app.session.flashBag.has('espaceClient') %}
+    <div class="d-flex justify-content-center">
+        {% for msg in app.session.flashBag.get('espaceClient') %}
+            <p class="alert alert-danger">{{ msg }}</p>
+        {% endfor %}
+    </div>
+{% endif %}
+<div class="container" style="width:700px;">
+    <div class="row">
+        <div class="col-md-12">
+                {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+                  {{ form_row(form.sexe , {'label' : 'Genre'}) }}
+                  {{ form_row(form.firstname , {'label' : 'Prenom'}) }}
+                  {{ form_row(form.lastname, {'label' : 'Nom'}) }}
+                  {{ form_row(form.society, {'label' : 'Societe'}) }}
+                  {{ form_row(form.adress, {'label' : 'Adresse'}) }}
+                  {{ form_row(form.cp, {'label' : 'Code Postal'}) }}
+                  {{ form_row(form.town, {'label' : 'Ville'}) }}
+                  {{ form_row(form.phonenumber, {'label' : 'Telephone'}) }}
+                    <input class="btn btn-primary float-right" type="submit" value="Create" />
+                {{ form_end(form) }}
+        </div>
+    </div>
+</div>
+{% endblock %}
